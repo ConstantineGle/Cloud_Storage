@@ -1,0 +1,32 @@
+version: "4.24.1"
+
+services:
+  postgres:
+    build:
+      context: ./
+      dockerfile: DockerfileDB
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=app_db
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
+
+  app:
+    image: 'cloud_storage'
+    container_name: cloudstorage1.0
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      - PORT=9999
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/app_db
+      - JS_URL=http://localhost
+    ports:
+      - "9999:9999"
+    depends_on:
+      - postgres
+volumes:
+  db-data:

@@ -1,0 +1,22 @@
+server:
+  port: 9999
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  flyway:
+    enabled : false
+    locations: classpath:/db/migration
+    baseline-on-migrate: true
+jwt:
+  secret: diplom
+settings:
+  cors_origin: http://localhost:8080/
